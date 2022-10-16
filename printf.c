@@ -2,64 +2,6 @@
 #include <stdint.h>
 
 /**
- * _vprintf - just like vprint, checks conditions
- * @format: format
- * @args: argument
- * Return: value
- */
-
-void _vprintf(const char *format, va_list args)
-{
-	char val;
-	const char *s;
-	int percent = 0;
-
-	while (*format)
-	{
-		if (percent == 0)
-		{
-			if (*format == '%')
-			{
-				percent = 1;
-			} else
-			{
-				_putchar(*format);
-			}
-		} else if (percent == 1)
-		{
-			switch (*format)
-			{
-				case 'c':
-					val = va_arg(args, int);
-
-					_putchar(val);
-				break;
-				case 's':
-					s = va_arg(args, const char *);
-
-					while (*s)
-						_putchar(*s++);
-				break;
-
-				case '%':
-					val = va_arg(args, int);
-					_putchar(*format);
-				break;
-				case 'p':
-					_putchar('0');
-					_putchar('x');
-				break;
-			}
-			percent = 0;
-		}
-		format++;
-	}
-
-}
-
-
-
-/**
  * _printf - function that produces output according to a format
  * @format: the format
  * Return: value
@@ -67,12 +9,27 @@ void _vprintf(const char *format, va_list args)
 
 int _printf(const char *format, ...)
 {
+	int printed_chars;
+
+	conver_t funct_list[] =	{
+		{"c", p_char},
+		{"s", p_string},
+		{"%", p_percent},
+		{NULL, NULL}
+	};
+
 	va_list args;
+
+
+	if (format == NULL)
+		return (-1);
 
 	va_start(args, format);
 
-	_vprintf(format, args);
+	/** call a parser function*/
+
+	printed_chars = parser(format, funct_list, args);
 	va_end(args);
 
-	return (0);
+	return (printed_chars);
 }
