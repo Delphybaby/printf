@@ -5,7 +5,7 @@
  * print a formated string.
  * @format: A string containing all the desired characters.
  * @funct_list: A list of all the posible functions.
- * @arg_list: A list containing all the argumentents passed to the program.
+ * @args: A list containing all the argumentents passed to the program.
  * Return: A total count of the characters printed.
  */
 int parser(const char *format, conver_t funct_list[], va_list args)
