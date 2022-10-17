@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdint.h>
 
 /**
 * struct convert - defines a structure for symbols and functions
@@ -26,4 +27,8 @@ int parser(const char *format, conver_t funct_list[], va_list args);
 int p_char(va_list);
 int p_string(va_list args);
 int p_percent(va_list);
+void number_to_string(int64_t number, int base, char *buffer);
+void unsigned_number_to_string(uint64_t number, int base, char *buffer    );
+int print_number(va_list);
+int p_integer(va_list);
 #endif
