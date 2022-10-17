@@ -54,16 +54,9 @@ int p_percent(__attribute__((unused)) va_list args)
 
 int p_integer(va_list args)
 {
-	int m, i;
-	char buf[65];
+	int n;
 
-	m = va_arg(args, int);
-	number_to_string(m, 10, buf);
-	for (i = 0; buf[i]; i++)
-	{
-		_putchar(buf[i]);
-	}
-
-	return (1);
+	n = print_number(args);
+	return (n);
 
 }

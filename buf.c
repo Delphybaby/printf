@@ -1,63 +1,66 @@
 #include "main.h"
 
 /**
- * unsigned_number_to_string -function to print uint
- * @base: base
- * @number: number
- * @buffer: pointer
+ * print_number - prints a number send to this function
+ * @args: List of arguments
+ * Return: The number of arguments printed
  */
-
-void unsigned_number_to_string(uint64_t number, int base, char *buffer)
+int print_number(va_list args)
 {
-	char buf[65];
-	int i;
-	int cur;
-	int digit;
+	int n;
+	int check;
+	int len;
+	unsigned int num;
 
-	if (number == 0)
+	n  = va_arg(args, int);
+	check = 1;
+	len = 0;
+
+	if (n < 0)
 	{
-		*buffer++ = '0';
-		*buffer = 0;
-		return;
+		len += _putchar('-');
+		num = n * -1;
 	}
-	for (i = 0; i < 65; i++)
+	else
+		num = n;
+
+	for (; num / check > 9; )
+		check *= 10;
+
+	for (; check != 0; )
 	{
-		buf[i] = 0;
+		len += _putchar('0' + num / check);
+		num %= check;
+		check /= 10;
 	}
-	cur = 0;
-	
-	while (number)
-	{
-		digit = number % base;
-		if (digit >= 10){
-			buf[cur++] = 'a' + (digit - 10);
-		} else
-		{
-			buf[cur++] = '0' + digit;
-		}
-		number /= base;
-	}
-	for (i = cur - 1; i != 0; i--)
-	{
-		*buffer++ = buf[i];
-	}
-	*buffer++ = buf[0];
-	*buffer = 0;
+
+	return (len);
 }
-
 /**
- * number_to_string - function that prints num
- * @number: number
- * @base: base
- * @buffer: pointer
+ * print_unsgined_number - Prints an unsigned number
+ * @n: unsigned integer to be printed
+ * Return: The amount of numbers printed
  */
-
-void number_to_string(int64_t number, int base, char *buffer)
+int print_unsgined_number(unsigned int n)
 {
-	if (number < 0)
+	int check;
+	int len;
+	unsigned int num;
+
+	check = 1;
+	len = 0;
+
+	num = n;
+
+	for (; num / check > 9; )
+		check *= 10;
+
+	for (; check != 0; )
 	{
-		*buffer++ = '-';
-		number = -number;
+		len += _putchar('0' + num / check);
+		num %= check;
+		check /= 10;
 	}
-	unsigned_number_to_string(number, base, buffer);
+
+	return (len);
 }
